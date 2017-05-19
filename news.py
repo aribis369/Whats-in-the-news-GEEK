@@ -57,7 +57,6 @@ def news(source):
         print(color.BOLD+"--------------------------------------------------------------------------------"+"\n")
 
 def logo():
-    print("What's in the news?GEEK!!!\n")
     printlogo()
     print(Style.DIM+"powered by NewsAPI.org\n"+Style.NORMAL)
 
