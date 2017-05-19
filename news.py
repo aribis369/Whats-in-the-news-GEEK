@@ -1,4 +1,4 @@
-from urllib.request import urlopen
+ffrom urllib.request import urlopen
 import json
 from logo import printlogo
 from colorama import Fore,Style,Back
@@ -34,7 +34,7 @@ cmds={"international":["BBC News","CNN","Daily Mail","The Guardian UK","The New 
 def news(source):
     # get your own api key from newsapi.org and paste in place of this random api key
     # program will not work with the underlying api key
-    api_key="86375eba80e54511b2b8c47e7289e6d1"
+    api_key="b8f5769bc5ce4dae8f362575e4a932f8"
     httpob=urlopen("https://newsapi.org/v1/articles?source="+source+"&sortBy=top&apiKey="+api_key)
     decob=httpob.read().decode("utf-8")
     jsonob=json.loads(decob)
@@ -42,8 +42,9 @@ def news(source):
     print(color.BOLD+"--------------------------------------------------------------------------------"+"\n")
     for n in news:
         print(Fore.RESET)
-        print(Back.RED+((color.BOLD+n["title"]+color.END))+color.END)
         try:
+            print(Back.YELLOW+jsonob["source"]+Back.RESET)
+            print(Back.RED+((color.BOLD+n["title"]+color.END))+color.END)
             print(color.DARKCYAN+n["description"]+color.END)
         except:
             print(Fore.RED+"SOME ERROR OCCURED!!!\n"+Fore.RESET)
@@ -95,28 +96,4 @@ def console():
 
 
 if __name__=="__main__":
-    console()         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
+    console()
