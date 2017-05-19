@@ -1,4 +1,4 @@
-ffrom urllib.request import urlopen
+from urllib.request import urlopen
 import json
 from logo import printlogo
 from colorama import Fore,Style,Back
