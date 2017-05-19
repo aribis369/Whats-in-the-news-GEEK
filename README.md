@@ -16,3 +16,6 @@ pip3 install -r requirements.txt
 * go to the terminal and open the directory where news.py is kept and type the command ```python3 news.py```
 * the program runs and now you can use the program by giving suitable commands
 * to see valid commands type ```help```
+## Get a look of it.Try it and give suggestions.PRs always open.
+![CLI window](ter.png)
+
