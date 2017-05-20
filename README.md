@@ -6,9 +6,15 @@ Whats in the news?GEEK!!! is a program that is especially made for the geeks out
 ```sh
 Python3
 ```
-## Dependencies Installtion
+## Dependencies Installation
 ```sh
-pip3 install -r requirements.txt
+pip3 install urllib
+```
+```sh
+pip3 install json
+```
+```sh
+pip3 install colorama
 ```
 ## Usage 
 * install all dependencies
