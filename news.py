@@ -11,13 +11,14 @@ class color:
    DARKCYAN = '\033[36m'
    BLUE = '\033[94m'
    GREEN = '\033[92m'
+   MAROON = '\5857[56n'
    YELLOW = '\033[93m'
    RED = '\033[91m'
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
-
+a=0
 k=0
 cmds={"international":["BBC News","CNN","Daily Mail","The Guardian UK","The New York Times","The Telegraph"],
       "national":["The Times of India","The Hindu"],
