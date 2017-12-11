@@ -12,12 +12,11 @@ Whats in the news?GEEK!!! is a program that is especially made for the geeks out
 ## Usage 
 * Install all dependencies `pip3 install -r requirements.txt`
 * Clone this repository
-`git clone https://github.com/aribis369/Whats-in-the-news-GEEK`
+* Get your API key from [NewsAPI](https://newsapi.org) replace it inside `news.py`
 * In the terminal, in the project directory, run
 ```python3 news.py```
 * Use the program by giving suitable commands
 * To see valid commands type ```help```
 
 ## Give it a look. Try it and give suggestions. PRs always open.
-![CLI window](ter.png)
-
+![CLI window](demo.gif)
