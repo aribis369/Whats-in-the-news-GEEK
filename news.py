@@ -138,6 +138,7 @@ def console():
 
         # exit command
         elif cmd == "exit":
+            print(Style.RESET_ALL)
             exit()
 
         # show news
