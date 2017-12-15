@@ -1,7 +1,8 @@
 def printlogo():
     print(" _ __ _ __ _ __ _ __ _ __ _ __ _ __ _")
     print("|                                    |")
-    print("|  Whats in the News???              |")
+    print("|    _ _ _                _          |")
+    print("|    \\/\/hats  in  the  [|\|ews?    |")
     print("|                                    |")
     print("|   ██████╗ ███████╗███████╗██╗  ██╗ |")
     print("|  ██╔════╝ ██╔════╝██╔════╝██║ ██╔╝ |")
