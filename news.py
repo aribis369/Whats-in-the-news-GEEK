@@ -38,7 +38,8 @@ def news(source):
     # if api key is Invalid an HTTPError will be thrown.
     except HTTPError as e:
         print("Invalid API")
-        exit()
+        create_api_file(file_name)
+        return console()
 
     # draws a border to seperate posts.
     draw_border()
@@ -66,7 +67,7 @@ def draw_border():
 
 
 def src(n):
-    k = n.lower().replace(" ", "-")
+    k = n.replace(" ", "-")
     return k
 
 
@@ -78,7 +79,7 @@ def create_api_file(file_name):
     This file will store the api key for the user.
     """
     global api_key
-    api_key = input("Enter the API key: ")
+    api_key = input("Enter a valid API key: ")
 
     with open(file_name, "w") as f:
         f.write(api_key + '\n')
@@ -87,9 +88,10 @@ def create_api_file(file_name):
 
 
 def get_api():
-    global api_key
+    global api_key 
 
     # the api once entered will be stored in this file.
+    global file_name 
     file_name = "user-api.txt"
 
     try:
