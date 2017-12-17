@@ -26,7 +26,24 @@ api_key = None
 
 
 def news(source):
-    url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=top&apiKey=" + api_key
+    print(" 1. Top News\n 2. Latest News\n 3. Most Popular News\n 4. Return")
+    loop = 1
+    while loop:
+        flag = int(input("[1/2/3/4] >>> "))
+        if flag == 1:
+            url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=top&apiKey=" + api_key
+            loop = 0
+        elif flag == 2:
+            url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=latest&apiKey=" + api_key
+            loop = 0
+        elif flag == 3:
+            url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=popular&apiKey=" + api_key
+            loop = 0
+        elif flag == 4:
+            loop = 0
+            return console()
+        else:
+            print("Enter a valid number!")
 
     # using with .. as to allow closing the url connection by python.
     try:
