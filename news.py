@@ -82,6 +82,8 @@ def create_api_file(file_name):
 
     with open(file_name, "w") as f:
         f.write(api_key + '\n')
+    f.close()
+    print("The API key is: " + api_key)
 
 
 def get_api():
@@ -91,8 +93,15 @@ def get_api():
     file_name = "user-api.txt"
 
     try:
-        with open(file_name, "r") as f:
-            api_key = f.readline()
+        f = open(file_name, "r") 
+        api_key = f.readline()
+        f.close()
+        print("The API key is: " + api_key)
+        print("Do you want to change the API key? [Y/N]\n")
+        flag = input()
+        if flag == 'Y':
+            create_api_file(file_name)
+
 
     # if the file was not found then create the file and store the api.
     except FileNotFoundError:
