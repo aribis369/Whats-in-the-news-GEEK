@@ -26,7 +26,24 @@ api_key = None
 
 
 def news(source):
-    url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=top&apiKey=" + api_key
+    print(" 1. Top News\n 2. Latest News\n 3. Most Popular News\n 4. Return")
+    loop = 1
+    while loop:
+        flag = int(input("[1/2/3/4] >>> "))
+        if flag == 1:
+            url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=top&apiKey=" + api_key
+            loop = 0
+        elif flag == 2:
+            url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=latest&apiKey=" + api_key
+            loop = 0
+        elif flag == 3:
+            url = "https://newsapi.org/v1/articles?source=" + source + "&sortBy=popular&apiKey=" + api_key
+            loop = 0
+        elif flag == 4:
+            loop = 0
+            return console()
+        else:
+            print("Enter a valid number!")
 
     # using with .. as to allow closing the url connection by python.
     try:
@@ -38,7 +55,8 @@ def news(source):
     # if api key is Invalid an HTTPError will be thrown.
     except HTTPError as e:
         print("Invalid API")
-        exit()
+        create_api_file(file_name)
+        return console()
 
     # draws a border to seperate posts.
     draw_border()
@@ -66,7 +84,7 @@ def draw_border():
 
 
 def src(n):
-    k = n.lower().replace(" ", "-")
+    k = n.replace(" ", "-")
     return k
 
 
@@ -78,21 +96,31 @@ def create_api_file(file_name):
     This file will store the api key for the user.
     """
     global api_key
-    api_key = input("Enter the API key: ")
+    api_key = input("Enter a valid API key: ")
 
     with open(file_name, "w") as f:
         f.write(api_key + '\n')
+    f.close()
+    print("The API key is: " + api_key)
 
 
 def get_api():
-    global api_key
+    global api_key 
 
     # the api once entered will be stored in this file.
+    global file_name 
     file_name = "user-api.txt"
 
     try:
-        with open(file_name, "r") as f:
-            api_key = f.readline()
+        f = open(file_name, "r") 
+        api_key = f.readline()
+        f.close()
+        print("The API key is: " + api_key)
+        print("Do you want to change the API key? [Y/N]\n")
+        flag = input()
+        if flag == 'Y':
+            create_api_file(file_name)
+
 
     # if the file was not found then create the file and store the api.
     except FileNotFoundError:
