@@ -13,13 +13,12 @@ cmds = {"international": ["BBC News", "CNN", "Daily Mail", "The Guardian UK", "T
         "science": ["New Scientist"],
         "blog": ["Reddit r all"],
         "adventure": ["National Geographic"],
-        "help": ["help", "exit","list-news","sources"],
+        "help": ["help", "exit","list-news"],
         "list-news": ["international", "national", "technology", "sports", "finance", "entertainment", "science", "blog", "adventure"]
         }
 
 # global api key to be given by the user.
 api_key = None
-
 
 def news(source):
     #for URL
@@ -58,8 +57,6 @@ def news(source):
         # print(Fore.RESET)
 
         draw_border()
-
-
 
 def draw_border():
     width = 80
@@ -114,7 +111,6 @@ def get_api():
     if api_key == None or len(api_key) == 0:
         create_api_file(file_name)
 
-
 def console():
     while True:
         cmd = input(">>> ")
@@ -143,15 +139,11 @@ def console():
             print(Style.RESET_ALL)
             exit()
 
-        elif cmd == "sources":
-            sour()
-
         # show news
         else:
             for n in cmds[cmd]:
                 s = src(n)
                 news(s)
-
 
 if __name__ == "__main__":
     printlogo()
