@@ -92,16 +92,33 @@ def sour():
         return console()
 
     draw_border()
+    key = 1
     for s in sources:
         print(Fore.RESET)
         try:
-            print(Back.BLUE + (Style.BRIGHT +s["name"] + Style.RESET_ALL) + Back.RESET)  
+            print(key, end="")
+            print(". " + Back.BLUE + (Style.BRIGHT +s["name"] + Style.RESET_ALL) + Back.RESET)
+            key = key+1
         except:
             print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
-        print(Fore.GREEN + (Style.BRIGHT + s["url"]))
-
     draw_border()
-
+    print("Enter the index of any source if you want to know more about it.\nEnter -1 for returning back to main menu\n")
+    loop = True
+    while loop:
+        flag = input(">")
+        try:
+            if flag == '-1':
+                loop = False
+            elif int(flag)>0 or int(flag)<60:
+                s = sources[int(flag) -1]
+                print('\n')
+                print(Back.BLUE + (Style.BRIGHT +s["name"] + Style.RESET_ALL) + Back.RESET)
+                print("Description: " + Fore.BLUE + s["description"] + Fore.RESET)
+                print("Category: " + Fore.RED + s["category"] + Fore.RESET)
+                print("Url: " + Fore.GREEN + (Style.BRIGHT + s["url"]) + Fore.RESET)
+                print("\nEnter any other index. Enter -1 to exit\n")            
+        except:
+            print("Invalid Entry!\n")
 
 
 def draw_border():
