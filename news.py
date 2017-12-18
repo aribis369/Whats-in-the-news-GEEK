@@ -17,8 +17,8 @@ cmds = {"international": ["BBC News", "CNN", "Daily Mail", "The Guardian UK", "T
         "science": ["New Scientist"],
         "blog": ["Reddit r all"],
         "adventure": ["National Geographic"],
-        "help": ["help", "exit","list"],
-        "list": ["international", "national", "technology", "sports", "finance", "entertainment", "science", "blog", "adventure"]
+        "help": ["help", "exit","list-news","sources"],
+        "list-news": ["international", "national", "technology", "sports", "finance", "entertainment", "science", "blog", "adventure"]
         }
 
 # global api key to be given by the user.
@@ -74,8 +74,34 @@ def news(source):
         print(Style.NORMAL)
         print(Fore.MAGENTA + "powered NewsAPI.org")
         print(Style.NORMAL)
+        # print(Fore.RESET)
 
         draw_border()
+
+def sour(): 
+    url = "https://newsapi.org/v1/sources?language=en"
+    try:
+        with urlopen(url) as httpob:
+            decob = httpob.read().decode("utf-8")
+            jsonob = json.loads(decob)
+            sources = jsonob["sources"]
+
+    except HTTPError as e:
+        print("Invalid API")
+        create_api_file(file_name)
+        return console()
+
+    draw_border()
+    for s in sources:
+        print(Fore.RESET)
+        try:
+            print(Back.BLUE + (Style.BRIGHT +s["name"] + Style.RESET_ALL) + Back.RESET)  
+        except:
+            print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
+        print(Fore.GREEN + (Style.BRIGHT + s["url"]))
+
+    draw_border()
+
 
 
 def draw_border():
@@ -137,7 +163,7 @@ def console():
         cmd = input(">>> ")
 
         # command is invalid
-        if (cmd not in cmds["list"] and cmd not in cmds["help"]):
+        if (cmd not in cmds["list-news"] and cmd not in cmds["help"]):
             print(Fore.RED + "WRONG COMMAND!!!")
             print(Fore.GREEN + "Try these COMMANDS" + Fore.RESET)
             for c in cmds["help"]:
@@ -150,15 +176,18 @@ def console():
                 print("    " + c)
 
         # list command
-        elif cmd == "list":
+        elif cmd == "list-news":
             print(Fore.GREEN + "Find news about any of these topics" + Fore.RESET)
-            for l in cmds["list"]:
+            for l in cmds["list-news"]:
                 print("    " + l)
 
         # exit command
         elif cmd == "exit":
             print(Style.RESET_ALL)
             exit()
+
+        elif cmd == "sources":
+            sour()
 
         # show news
         else:
