@@ -58,12 +58,12 @@ def news(source):
     for n in news:
         print(Fore.RESET)
         try:
-            print(Back.YELLOW + jsonob["source"] + Back.RESET)
+            print(Back.YELLOW + src2(jsonob["source"]) + Back.RESET)
             print((Style.BRIGHT +"By: " + n["author"]) + Style.RESET_ALL)
             #Sometimes the author is not provided. For those cases, 'Except' has been put. 
             #If no author provided, The author will be give out to be the news publishing company.
         except:
-        	print((Style.BRIGHT +"By: " + jsonob["source"]) + Style.RESET_ALL)
+        	print((Style.BRIGHT +"By: " + src2(jsonob["source"])) + Style.RESET_ALL)
         try:
             print(Back.RED + (Style.BRIGHT + n["title"] + Style.RESET_ALL)) 
             print(Fore.BLUE + n["description"] + Fore.RESET)
@@ -131,6 +131,10 @@ def draw_border():
 def src(n):
     k = n.replace(" ", "-")
     return k
+
+def src2(n):
+	k = n.replace("-"," ")
+	return k
 
 def create_api_file(file_name):
     """
