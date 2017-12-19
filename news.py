@@ -64,18 +64,20 @@ def news(source):
         print(Fore.RESET)
         try:
             print(Back.YELLOW + jsonob["source"] + Back.RESET)
+            print((Style.BRIGHT +"By: " + n["author"]) + Style.RESET_ALL)
+        except:
+        	print((Style.BRIGHT +"By: " + jsonob["source"]) + Style.RESET_ALL)
+        try:
             print(Back.RED + (Style.BRIGHT + n["title"] + Style.RESET_ALL)) 
             print(Fore.BLUE + n["description"] + Fore.RESET)
         except:
             print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
-
-        print(Fore.YELLOW + "want to read more:" + Back.RESET)
-        print(Fore.GREEN + (Style.DIM + n["url"]))
-        print(Style.NORMAL)
-        print(Fore.MAGENTA + "powered NewsAPI.org")
-        print(Style.NORMAL)
-        # print(Fore.RESET)
-
+        print(Back.BLUE +(Style.BRIGHT + "url: "+ n["url"]) + Style.RESET_ALL + Back.RESET)
+        try:
+        	print(Fore.GREEN + "Published At: "+ n["publishedAt"] + Fore.RESET )
+        except:
+        	draw_border()
+        	continue
         draw_border()
 
 def sour(): 
