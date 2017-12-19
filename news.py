@@ -4,10 +4,6 @@ import json
 from logo import printlogo
 from colorama import Fore, Style, Back
 
-
-
-
-
 cmds = {"international": ["BBC News", "CNN", "Daily Mail", "The Guardian UK", "The New York Times", "The Telegraph"],
         "national": ["The Times of India", "The Hindu"],
         "technology": ["Engadget", "Hacker News", "Techcrunch", "TechRadar", "The Next Web"],
@@ -23,7 +19,6 @@ cmds = {"international": ["BBC News", "CNN", "Daily Mail", "The Guardian UK", "T
 
 # global api key to be given by the user.
 api_key = None
-
 
 def news(source):
     print(" 1. Top News\n 2. Latest News\n 3. Most Popular News\n 4. Return")
@@ -65,6 +60,8 @@ def news(source):
         try:
             print(Back.YELLOW + jsonob["source"] + Back.RESET)
             print((Style.BRIGHT +"By: " + n["author"]) + Style.RESET_ALL)
+            #Sometimes the author is not provided. For those cases, 'Except' has been put. 
+            #If no author provided, The author will be give out to be the news publishing company.
         except:
         	print((Style.BRIGHT +"By: " + jsonob["source"]) + Style.RESET_ALL)
         try:
@@ -73,6 +70,8 @@ def news(source):
         except:
             print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
         print(Back.BLUE +(Style.BRIGHT + "url: "+ n["url"]) + Style.RESET_ALL + Back.RESET)
+        #Similar to author, sometimes the Publishing time is not provided. 
+        #For those cases, there will be no publishing time put. So except case has been made.
         try:
         	print(Fore.GREEN + "Published At: "+ n["publishedAt"] + Fore.RESET )
         except:
@@ -81,6 +80,8 @@ def news(source):
         draw_border()
 
 def sour(): 
+	#The is just one url for sources function and no further modification to it required,
+	#Hence url has been initialised at the starting for the same.
     url = "https://newsapi.org/v1/sources?language=en"
     try:
         with urlopen(url) as httpob:
@@ -104,6 +105,7 @@ def sour():
         except:
             print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
     draw_border()
+    #Incase more detailed description of the source required.
     print("Enter the index of any source if you want to know more about it.\nEnter -1 for returning back to main menu\n")
     loop = True
     while loop:
@@ -122,16 +124,13 @@ def sour():
         except:
             print("Invalid Entry!\n")
 
-
 def draw_border():
     width = 80
     print(Style.BRIGHT+"-" * width +Style.RESET_ALL+"\n")
 
-
 def src(n):
     k = n.replace(" ", "-")
     return k
-
 
 def create_api_file(file_name):
     """
@@ -147,7 +146,6 @@ def create_api_file(file_name):
         f.write(api_key + '\n')
     f.close()
     print("The API key is: " + api_key)
-
 
 def get_api():
     global api_key 
@@ -175,7 +173,6 @@ def get_api():
     # get the api from the user.
     if api_key == None or len(api_key) == 0:
         create_api_file(file_name)
-
 
 def console():
     while True:
@@ -213,7 +210,6 @@ def console():
             for n in cmds[cmd]:
                 s = src(n)
                 news(s)
-
 
 if __name__ == "__main__":
     printlogo()
