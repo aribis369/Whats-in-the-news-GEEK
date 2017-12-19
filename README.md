@@ -15,6 +15,8 @@ Whats in the news?GEEK!!! is a program that is especially made for the geeks out
 * Get your API key from [NewsAPI](https://newsapi.org) replace it inside `news.py`
 * In the terminal, in the project directory, run
 ```python3 news.py```
+* For Version 2 implementation, run
+```python3 newsv2.py```
 * Use the program by giving suitable commands
 * To see valid commands type ```help```
 
