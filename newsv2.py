@@ -13,7 +13,7 @@ cmds = {"international": ["BBC News", "CNN", "Daily Mail", "The Guardian UK", "T
         "science": ["New Scientist"],
         "blog": ["Reddit r all"],
         "adventure": ["National Geographic"],
-        "help": ["help", "exit","list-news"],
+        "help": ["help", "exit","list-news","query"],
         "list-news": ["international", "national", "technology", "sports", "finance", "entertainment", "science", "blog", "adventure"]
         }
 
@@ -45,11 +45,11 @@ def news(source):
         print(Back.YELLOW + src2(temp["name"]) + Back.RESET)
         try:
         	if n["author"] == "":
-        		print(Back.YELLOW +"By: "+ src2(temp["name"]) + Back.RESET)
+        		print((Style.BRIGHT +"By: " + src2(temp["name"])) + Style.RESET_ALL)
         	else:
         		print((Style.BRIGHT +"By: " + n["author"]) + Style.RESET_ALL)
         except:
-        	print(Back.YELLOW + "By: "+ src2(temp["name"]) + Back.RESET)
+        	print((Style.BRIGHT +"By: " + src2(temp["name"])) + Style.RESET_ALL)
         try:
         	print(Back.RED + (Style.BRIGHT + n["title"] + Style.RESET_ALL)) 
         	print(Fore.BLUE + n["description"] + Fore.RESET)
@@ -63,6 +63,48 @@ def news(source):
         except:
         	draw_border()
         	continue
+        draw_border()
+
+def query(sea):
+    url = "https://newsapi.org/v2/top-headlines?q=" + sea + "&apiKey="+ api_key
+    try:
+        with urlopen(url) as httpob:
+            decob = httpob.read().decode("utf-8")
+            jsonob = json.loads(decob)
+            news = jsonob["articles"]
+
+    # if api key is Invalid an HTTPError will be thrown.
+    except HTTPError as e:
+        print("Invalid API")
+        create_api_file(file_name)
+        return console()
+
+    # draws a border to seperate posts.
+    draw_border()
+    for n in news:
+        print(Fore.RESET)
+        temp = n["source"]
+        print(Back.YELLOW + src2(temp["name"]) + Back.RESET)
+        try:
+            if n["author"] == "":
+                print((Style.BRIGHT +"By: " + src2(temp["name"])) + Style.RESET_ALL)
+            else:
+                print((Style.BRIGHT +"By: " + n["author"]) + Style.RESET_ALL)
+        except:
+            print((Style.BRIGHT +"By: " + src2(temp["name"])) + Style.RESET_ALL)
+        try:
+            print(Back.RED + (Style.BRIGHT + n["title"] + Style.RESET_ALL)) 
+            print(Fore.BLUE + n["description"] + Fore.RESET)
+        except:
+            print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
+        print(Back.BLUE +(Style.BRIGHT + "url: "+ n["url"]) + Style.RESET_ALL + Back.RESET)
+        #Similar to author, sometimes the Publishing time is not provided. 
+        #For those cases, there will be no publishing time put. So except case has been made.
+        try:
+            print(Fore.GREEN + "Published At: "+ n["publishedAt"] + Fore.RESET )
+        except:
+            draw_border()
+            continue
         draw_border()
 
 def draw_border():
@@ -82,7 +124,6 @@ def create_api_file(file_name):
     """
     This method creates a new file, with the name
     'file_name'.
-
     This file will store the api key for the user.
     """
     global api_key
@@ -144,6 +185,10 @@ def console():
             for l in cmds["list-news"]:
                 print("    " + l)
 
+        elif cmd =="query":
+        	print(Fore.GREEN + "Enter Your Query: " + Fore.RESET)
+        	sea = input(">")
+        	query(sea)
         # exit command
         elif cmd == "exit":
             print(Style.RESET_ALL)
