@@ -41,21 +41,28 @@ def news(source):
     draw_border()
     for n in news:
         print(Fore.RESET)
+        temp = n["source"]
+        print(Back.YELLOW + src2(temp["name"]) + Back.RESET)
         try:
-            key = n["source"]
-            print(Back.YELLOW + key["name"] + Back.RESET)
-            print(Back.RED + (Style.BRIGHT + n["title"] + Style.RESET_ALL)) 
-            print(Fore.BLUE + n["description"] + Fore.RESET)
+        	if n["author"] == "":
+        		print(Back.YELLOW +"By: "+ src2(temp["name"]) + Back.RESET)
+        	else:
+        		print((Style.BRIGHT +"By: " + n["author"]) + Style.RESET_ALL)
+        except:
+        	print(Back.YELLOW + "By: "+ src2(temp["name"]) + Back.RESET)
+        try:
+        	print(Back.RED + (Style.BRIGHT + n["title"] + Style.RESET_ALL)) 
+        	print(Fore.BLUE + n["description"] + Fore.RESET)
         except:
             print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
-
-        print(Fore.YELLOW + "want to read more:" + Back.RESET)
-        print(Fore.GREEN + (Style.DIM + n["url"]))
-        print(Style.NORMAL)
-        print(Fore.MAGENTA + "powered NewsAPI.org")
-        print(Style.NORMAL)
-        # print(Fore.RESET)
-
+        print(Back.BLUE +(Style.BRIGHT + "url: "+ n["url"]) + Style.RESET_ALL + Back.RESET)
+        #Similar to author, sometimes the Publishing time is not provided. 
+        #For those cases, there will be no publishing time put. So except case has been made.
+        try:
+        	print(Fore.GREEN + "Published At: "+ n["publishedAt"] + Fore.RESET )
+        except:
+        	draw_border()
+        	continue
         draw_border()
 
 def draw_border():
@@ -67,6 +74,9 @@ def src(n):
     k = n.replace(" ", "-")
     return k
 
+def src2(n):
+	k = n.replace("-"," ")
+	return k
 
 def create_api_file(file_name):
     """
