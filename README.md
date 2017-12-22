@@ -21,4 +21,4 @@ Whats in the news?GEEK!!! is a program that is especially made for the geeks out
 * To see valid commands type ```help```
 
 ## Give it a look. Try it and give suggestions. PRs always open.
-![CLI window](demo.gif)
+![CLI window](out.gif)
