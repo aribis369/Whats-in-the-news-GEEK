@@ -13,7 +13,7 @@ cmds = {"international": ["BBC News", "CNN", "Daily Mail", "The Guardian UK", "T
         "science": ["New Scientist"],
         "blog": ["Reddit r all"],
         "adventure": ["National Geographic"],
-        "help": ["help", "exit","list-news","query"],
+        "help": ["help", "exit","list-news","query","category"],
         "list-news": ["international", "national", "technology", "sports", "finance", "entertainment", "science", "blog", "adventure"]
         }
 
@@ -67,6 +67,48 @@ def news(source):
 
 def query(sea):
     url = "https://newsapi.org/v2/top-headlines?q=" + sea + "&apiKey="+ api_key
+    try:
+        with urlopen(url) as httpob:
+            decob = httpob.read().decode("utf-8")
+            jsonob = json.loads(decob)
+            news = jsonob["articles"]
+
+    # if api key is Invalid an HTTPError will be thrown.
+    except HTTPError as e:
+        print("Invalid API")
+        create_api_file(file_name)
+        return console()
+
+    # draws a border to seperate posts.
+    draw_border()
+    for n in news:
+        print(Fore.RESET)
+        temp = n["source"]
+        print(Back.YELLOW + src2(temp["name"]) + Back.RESET)
+        try:
+            if n["author"] == "":
+                print((Style.BRIGHT +"By: " + src2(temp["name"])) + Style.RESET_ALL)
+            else:
+                print((Style.BRIGHT +"By: " + n["author"]) + Style.RESET_ALL)
+        except:
+            print((Style.BRIGHT +"By: " + src2(temp["name"])) + Style.RESET_ALL)
+        try:
+            print(Back.RED + (Style.BRIGHT + n["title"] + Style.RESET_ALL)) 
+            print(Fore.BLUE + n["description"] + Fore.RESET)
+        except:
+            print(Fore.RED + "SOME ERROR OCCURED!!!\n" + Fore.RESET)
+        print(Back.BLUE +(Style.BRIGHT + "url: "+ n["url"]) + Style.RESET_ALL + Back.RESET)
+        #Similar to author, sometimes the Publishing time is not provided. 
+        #For those cases, there will be no publishing time put. So except case has been made.
+        try:
+            print(Fore.GREEN + "Published At: "+ n["publishedAt"] + Fore.RESET )
+        except:
+            draw_border()
+            continue
+        draw_border()
+
+def category(cat):
+    url = "https://newsapi.org/v2/top-headlines?category="+ cat +"&language=en&apiKey=" + api_key
     try:
         with urlopen(url) as httpob:
             decob = httpob.read().decode("utf-8")
@@ -193,6 +235,11 @@ def console():
         elif cmd == "exit":
             print(Style.RESET_ALL)
             exit()
+
+        elif cmd =="category":
+        	print(Fore.GREEN + "Enter A Category: " + Fore.RESET)
+        	cat = input(">")
+        	category(cat)
 
         # show news
         else:
